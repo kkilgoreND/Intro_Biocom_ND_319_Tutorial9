@@ -6,7 +6,9 @@ from plotnine import *
 data=pandas.read_csv("ponzr1.csv", sep=',')
 data.shape
 data.columns
-#subset1=data.loc[data.mutation.isin(['WT','M124K']),:]
+mutation=[0]
+ponzr1Counts=[1]
+subset1=data.loc[data.mutation.isin(['WT','M124K']),:]
 #subset2=data.loc[data.mutation.isin(['WT','V456D']),:]
 #subset3=data.loc[data.mutation.isin(['WT','I213N']),:]
 def null (p,obs):
