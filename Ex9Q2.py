@@ -1,15 +1,25 @@
+#load packages
 import numpy
 import pandas
-from scipy.optimize import curve_fit
+import scipy
+from scipy.optimize import minimize
 from scipy.stats import norm
-from plotnine import *
-data=pandas.read_csv("MmarinumGrowth.csv", names=['S','u'])
+
+#load dataset
+data=pandas.read_csv("MmarinumGrowth.csv")
 data.shape
 data.columns
-S=[0]
-u=[1]
-#define x as S from csv
-x=numpy.array("S")
-#define y as u from csv
-y=numpy.array("u")
-#u=umax*(S/(S+K))
+
+#define that funky function
+def Monod(p,obs):
+    max=p[0]
+    K=p[1]
+    sigma=p[2]
+    expected=max*(obs.S/(obs.S+K))
+    nll=-1*norm(expected,sigma).logpdf(obs.u).sum()
+    return nll
+#run the fit function
+initialGuess=numpy.array([1,1,1])
+fit=minimize(Monod,initialGuess,method="Nelder-Mead",options={'disp':True},args=data)
+print(fit.x)
+#oh yeah, thanks YY!
