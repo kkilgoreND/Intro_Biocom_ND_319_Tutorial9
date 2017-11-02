@@ -51,7 +51,7 @@ def hump(p,obs):
     B1=p[1]
     B2=p[2]
     sigma=p[3]
-    expected=B0+B1*obs.x+B2*(obs.x)^2
+    expected=B0+B1*obs.x+B2*((obs.x)**2)
     nll=-1*norm(expected,sigma).logpdf(obs.y).sum()
     return nll
     
