@@ -2,15 +2,12 @@ import numpy
 import pandas
 from scipy.optimize import minimize
 from scipy.stats import norm
-from plotnine import *
 data=pandas.read_csv("ponzr1.csv", sep=',')
 data.shape
 data.columns
-mutation=[0]
-ponzr1Counts=[1]
 subset1=data.loc[data.mutation.isin(['WT','M124K']),:]
-#subset2=data.loc[data.mutation.isin(['WT','V456D']),:]
-#subset3=data.loc[data.mutation.isin(['WT','I213N']),:]
+subset2=data.loc[data.mutation.isin(['WT','V456D']),:]
+subset3=data.loc[data.mutation.isin(['WT','I213N']),:]
 def null (p,obs):
     B0=p[0]
     sigma=p[1]
@@ -25,8 +22,7 @@ def alter(p,obs):
     nll=-1*norm(expected,sigma).logpdf(obs.y).sum()
     return nll
 initialGuess=numpy.array([1,1,1])
-df=1
-#fitNull=minimize(subset1,initialGuess,method="Nelder-Mead",options={'disp':True},args=df)
-#fitAlter=minimize(subset1,initialGuess,method="Nelder-Mead",options={'disp':True},args=df)
+fitNull=minimize(null,initialGuess,method="Nelder-Mead",options={'disp':True},args=subset1)
+fitAlter=minimize(alter,initialGuess,method="Nelder-Mead",options={'disp':True},args=subset1)
 #D=2*(fitNull.fun-fitAlter.fun)
 #1-scipy.stats.chi2.cdf(x=D,df=1)
