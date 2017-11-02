@@ -68,7 +68,7 @@ mut=minimize(mut, initialGuess, method="Nelder-Mead", options={'disp': True}, ar
 #print parameters
 print(mut.x)
 #print nll
-print(mut_fit.fun)
+print(mut.fun)
 
 #difference in nll calculation
 D=2*(null.fun-mut.fun)
