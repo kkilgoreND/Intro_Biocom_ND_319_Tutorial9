@@ -1,5 +1,6 @@
 import numpy
 import pandas
+import scipy
 from scipy.optimize import minimize
 from scipy.stats import norm
 data=pandas.read_csv("ponzr1.csv", sep=',')
